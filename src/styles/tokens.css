@@ -1,0 +1,10 @@
+:root {
+  --pine-bg: #16241c;
+  --bone-text: #ede6da;
+  --rose-accent: #c97b84;
+  --sage-muted: #7a8c7e;
+  --amber-warn: #e8a33d;
+
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}

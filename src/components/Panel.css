@@ -1,0 +1,19 @@
+.panel {
+  position: relative;
+  border: 1px solid var(--sage-muted);
+  background: var(--pine-bg);
+  padding: 24px 16px 16px;
+}
+
+.panel-title {
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  padding: 0 6px;
+  background: var(--pine-bg);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sage-muted);
+}

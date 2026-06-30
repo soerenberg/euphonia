@@ -1,8 +1,10 @@
 :root {
-  font: 16px/1.5 system-ui, sans-serif;
-  color-scheme: light dark;
+  font: 16px/1.5 var(--font-sans);
+  color-scheme: dark;
 }
 
 body {
   margin: 0;
+  background: var(--pine-bg);
+  color: var(--bone-text);
 }

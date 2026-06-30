@@ -1,7 +1,7 @@
-import { AudioTestPage } from './pages/AudioTestPage'
+import { ChromeDemoPage } from './pages/ChromeDemoPage'
 
 function App() {
-  return <AudioTestPage />
+  return <ChromeDemoPage />
 }
 
 export default App

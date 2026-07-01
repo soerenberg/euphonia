@@ -1,0 +1,55 @@
+.hamburger-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+}
+
+.hamburger-menu {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: min(280px, calc(100vw - 32px));
+  font-family: var(--font-mono);
+}
+
+.hamburger-menu-section-label {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--sage-muted);
+  margin: 0 0 8px;
+}
+
+.hamburger-menu-options {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.hamburger-menu-option {
+  appearance: none;
+  border: 1px solid var(--sage-muted);
+  background: none;
+  color: var(--bone-text);
+  font: inherit;
+  padding: 10px 12px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.hamburger-menu-option[aria-pressed='true'] {
+  background: var(--rose-accent);
+  border-color: var(--rose-accent);
+  color: var(--pine-bg);
+  font-weight: 600;
+}
+
+.hamburger-menu-close {
+  appearance: none;
+  border: none;
+  background: none;
+  color: var(--sage-muted);
+  font: inherit;
+  padding: 10px 0;
+  min-height: 44px;
+  cursor: pointer;
+}

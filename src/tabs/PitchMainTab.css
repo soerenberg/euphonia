@@ -1,0 +1,54 @@
+.pitch-main-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: var(--font-mono);
+}
+
+.pitch-main-tab-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pitch-main-tab-button {
+  appearance: none;
+  border: 1px solid var(--sage-muted);
+  background: none;
+  color: var(--bone-text);
+  font: inherit;
+  padding: 10px 16px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.pitch-main-tab-button:disabled {
+  color: var(--sage-muted);
+  cursor: default;
+}
+
+.pitch-main-tab-status {
+  color: var(--sage-muted);
+}
+
+.pitch-main-tab-error {
+  color: var(--amber-warn);
+}
+
+.pitch-main-tab-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.pitch-main-tab-stat-label {
+  color: var(--sage-muted);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  margin: 0 0 4px;
+}
+
+.pitch-main-tab-stat-value {
+  font-size: 20px;
+  margin: 0;
+}

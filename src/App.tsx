@@ -3,6 +3,7 @@ import { BracketTabs, type BracketTab } from './components/BracketTabs'
 import { Panel } from './components/Panel'
 import { FunctionKeyFooter, type FunctionKey } from './components/FunctionKeyFooter'
 import { HamburgerMenu } from './components/HamburgerMenu'
+import { CalibrationFlow, type CalibrationMode } from './components/CalibrationFlow'
 import { useSettings } from './store/SettingsContext'
 import { PitchMainTab } from './tabs/PitchMainTab'
 import { FreeTalkTab } from './tabs/FreeTalkTab'
@@ -18,11 +19,23 @@ const TABS: BracketTab[] = [
 function App() {
   const [activeId, setActiveId] = useState('pitch')
   const [menuOpen, setMenuOpen] = useState(false)
-  const { timeWindowSeconds, setTimeWindowSeconds } = useSettings()
+  const [calibrationMode, setCalibrationMode] = useState<CalibrationMode | null | 'closed'>('closed')
+  const {
+    timeWindowSeconds,
+    setTimeWindowSeconds,
+    targetRangeHz,
+    setTargetRangeHz,
+    baselineRangeHz,
+  } = useSettings()
+
+  const launchCalibration = (mode: CalibrationMode | null) => {
+    setMenuOpen(false)
+    setCalibrationMode(mode)
+  }
 
   const footerKeys: FunctionKey[] = [{ key: 'F1', label: 'MENU', onPress: () => setMenuOpen((open) => !open) }]
   if (activeId === 'pitch') {
-    footerKeys.push({ key: 'F2', label: 'CALIBRATE', onPress: () => alert('Calibration — not built yet (Phase 4)') })
+    footerKeys.push({ key: 'F2', label: 'CALIBRATE', onPress: () => launchCalibration(null) })
   } else if (activeId === 'talk') {
     footerKeys.push({ key: 'F3', label: 'NEXT', onPress: () => alert('Next prompt — not built yet (Phase 5)') })
   } else if (activeId === 'compare') {
@@ -43,7 +56,14 @@ function App() {
         onClose={() => setMenuOpen(false)}
         timeWindowSeconds={timeWindowSeconds}
         onChangeTimeWindow={setTimeWindowSeconds}
+        targetRangeHz={targetRangeHz}
+        onChangeTargetRange={setTargetRangeHz}
+        baselineRangeHz={baselineRangeHz}
+        onLaunchCalibration={launchCalibration}
       />
+      {calibrationMode !== 'closed' && (
+        <CalibrationFlow mode={calibrationMode} onClose={() => setCalibrationMode('closed')} />
+      )}
     </div>
   )
 }

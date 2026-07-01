@@ -39,3 +39,19 @@ export function computeSessionStats(samples: PitchSample[], range: TargetRange):
 
   return { average, percentInRange }
 }
+
+export const MIN_CALIBRATION_SAMPLES = 10
+
+export function computePercentileRange(
+  samples: PitchSample[],
+  lowerPct = 10,
+  upperPct = 90,
+): TargetRange | null {
+  const voiced = samples.filter(isVoiced)
+  if (voiced.length < MIN_CALIBRATION_SAMPLES) return null
+
+  const pitches = voiced.map((s) => s.pitch).sort((a, b) => a - b)
+  const at = (pct: number) => pitches[Math.floor((pct / 100) * (pitches.length - 1))]
+
+  return { min: at(lowerPct), max: at(upperPct) }
+}

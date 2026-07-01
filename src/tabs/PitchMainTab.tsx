@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
 import { usePitchStream } from '../audio/usePitchStream'
-import { CLARITY_THRESHOLD, computeSessionStats, type PitchSample } from '../audio/pitchStats'
+import { useSessionSamples } from '../audio/useSessionSamples'
+import { CLARITY_THRESHOLD, computeSessionStats } from '../audio/pitchStats'
 import { useSettings } from '../store/SettingsContext'
 import { SteppedPitchGraph } from '../components/SteppedPitchGraph'
 import './PitchMainTab.css'
@@ -12,23 +12,11 @@ function formatHz(hz: number | null): string {
 export function PitchMainTab() {
   const { status, pitch, clarity, error, start, stop } = usePitchStream()
   const { timeWindowSeconds, targetRangeHz } = useSettings()
-  const [samples, setSamples] = useState<PitchSample[]>([])
-  const prevStatusRef = useRef(status)
-
-  useEffect(() => {
-    if (status === 'running' && prevStatusRef.current !== 'running') {
-      setSamples([])
-    }
-    prevStatusRef.current = status
-  }, [status])
-
-  useEffect(() => {
-    if (status !== 'running' || pitch == null || clarity == null) return
-    setSamples((prev) => [...prev, { t: Date.now(), pitch, clarity }])
-  }, [status, pitch, clarity])
+  const samples = useSessionSamples(status, pitch, clarity)
 
   const currentPitch = clarity != null && clarity >= CLARITY_THRESHOLD ? pitch : null
   const { average, percentInRange } = computeSessionStats(samples, targetRangeHz)
+  const hasTarget = targetRangeHz.min != null || targetRangeHz.max != null
 
   return (
     <div className="pitch-main-tab">
@@ -66,7 +54,7 @@ export function PitchMainTab() {
         <div>
           <p className="pitch-main-tab-stat-label">% IN RANGE</p>
           <p className="pitch-main-tab-stat-value">
-            {percentInRange != null ? `${percentInRange.toFixed(0)}%` : 'target not set'}
+            {!hasTarget ? 'target not set' : percentInRange != null ? `${percentInRange.toFixed(0)}%` : '—'}
           </p>
         </div>
       </div>

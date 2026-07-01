@@ -1,0 +1,25 @@
+.target-range-settings {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.target-range-settings input {
+  appearance: none;
+  border: 1px solid var(--sage-muted);
+  background: none;
+  color: var(--bone-text);
+  font: inherit;
+  padding: 10px 8px;
+  min-height: 44px;
+  width: 72px;
+}
+
+.target-range-settings input::placeholder {
+  color: var(--sage-muted);
+}
+
+.target-range-settings-sep {
+  color: var(--sage-muted);
+}

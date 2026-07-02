@@ -40,7 +40,7 @@ export function PitchMainTab() {
 
       {error && <p className="pitch-main-tab-error">error: {error}</p>}
 
-      <SteppedPitchGraph samples={samples} windowSeconds={timeWindowSeconds} targetRange={targetRangeHz} />
+      <SteppedPitchGraph series={[{ samples }]} windowSeconds={timeWindowSeconds} targetRange={targetRangeHz} />
 
       <div className="pitch-main-tab-stats">
         <div>

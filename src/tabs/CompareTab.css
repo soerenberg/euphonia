@@ -1,0 +1,100 @@
+.compare-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: var(--font-mono);
+}
+
+.compare-tab-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.compare-tab-button {
+  appearance: none;
+  border: 1px solid var(--sage-muted);
+  background: none;
+  color: var(--bone-text);
+  font: inherit;
+  padding: 10px 16px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.compare-tab-button:disabled {
+  color: var(--sage-muted);
+  cursor: default;
+}
+
+.compare-tab-status {
+  color: var(--sage-muted);
+}
+
+.compare-tab-error {
+  color: var(--amber-warn);
+}
+
+.compare-tab-clips {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.compare-tab-clip-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  border: 1px solid var(--sage-muted);
+  padding: 8px;
+}
+
+.compare-tab-swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  flex: none;
+  border: 1px solid var(--sage-muted);
+}
+
+.compare-tab-clip-label {
+  appearance: none;
+  border: 1px solid var(--sage-muted);
+  background: none;
+  color: var(--bone-text);
+  font: inherit;
+  padding: 8px;
+  min-height: 44px;
+  width: 120px;
+}
+
+.compare-tab-clip-stat {
+  color: var(--sage-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.compare-tab-clip-actions {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.compare-tab-clip-button {
+  appearance: none;
+  border: 1px solid var(--sage-muted);
+  background: none;
+  color: var(--bone-text);
+  font: inherit;
+  font-size: 12px;
+  padding: 8px 10px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.compare-tab-storage {
+  color: var(--sage-muted);
+  font-size: 12px;
+}

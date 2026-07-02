@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { BracketTabs, type BracketTab } from './components/BracketTabs'
 import { Panel } from './components/Panel'
 import { FunctionKeyFooter, type FunctionKey } from './components/FunctionKeyFooter'
@@ -23,6 +23,7 @@ function App() {
   const [calibrationMode, setCalibrationMode] = useState<CalibrationMode | null | 'closed'>('closed')
   const [freeTalkCategory, setFreeTalkCategory] = useState<CategoryId>('smalltalk')
   const [freeTalkContent, setFreeTalkContent] = useState(() => generateFor('smalltalk'))
+  const compareActionRef = useRef<(() => void) | null>(null)
   const {
     timeWindowSeconds,
     setTimeWindowSeconds,
@@ -51,7 +52,7 @@ function App() {
   } else if (activeId === 'talk') {
     footerKeys.push({ key: 'F3', label: 'NEXT', onPress: handleFreeTalkNext })
   } else if (activeId === 'compare') {
-    footerKeys.push({ key: 'F10', label: 'SAVE', onPress: () => alert('Save clip — not built yet (Phase 6)') })
+    footerKeys.push({ key: 'F10', label: 'SAVE', onPress: () => compareActionRef.current?.() })
   }
 
   return (
@@ -67,7 +68,9 @@ function App() {
             onNext={handleFreeTalkNext}
           />
         )}
-        {activeId === 'compare' && <CompareTab />}
+        {activeId === 'compare' && (
+          <CompareTab registerAction={(action) => (compareActionRef.current = action)} />
+        )}
       </Panel>
       <FunctionKeyFooter keys={footerKeys} />
       <HamburgerMenu

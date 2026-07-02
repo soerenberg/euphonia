@@ -35,7 +35,7 @@ export function FloatingPitchWidget({ onHide }: FloatingPitchWidgetProps) {
           Start
         </button>
       ) : (
-        <SteppedPitchGraph samples={samples} windowSeconds={WIDGET_WINDOW_SECONDS} targetRange={targetRangeHz} />
+        <SteppedPitchGraph series={[{ samples }]} windowSeconds={WIDGET_WINDOW_SECONDS} targetRange={targetRangeHz} />
       )}
 
       {error && <p className="floating-pitch-widget-error">{error}</p>}

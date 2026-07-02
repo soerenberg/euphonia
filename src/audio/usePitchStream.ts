@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import workletUrl from './pitchWorklet.ts?worker&url'
 
 export type PitchStreamStatus = 'idle' | 'requesting-permission' | 'running' | 'stopped' | 'error'
@@ -74,6 +74,15 @@ export function usePitchStream() {
     void audioContextRef.current?.close()
     audioContextRef.current = null
     setState((s) => ({ ...initialState, status: 'stopped', sampleRate: s.sampleRate }))
+  }, [])
+
+  // Consumers that unmount without calling stop() (e.g. hiding an overlay
+  // mid-recording) shouldn't leave the mic/AudioContext running invisibly.
+  useEffect(() => {
+    return () => {
+      streamRef.current?.getTracks().forEach((track) => track.stop())
+      void audioContextRef.current?.close()
+    }
   }, [])
 
   return { ...state, start, stop }

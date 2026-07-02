@@ -8,6 +8,7 @@ import { useSettings } from './store/SettingsContext'
 import { PitchMainTab } from './tabs/PitchMainTab'
 import { FreeTalkTab } from './tabs/FreeTalkTab'
 import { CompareTab } from './tabs/CompareTab'
+import { generateFor, pickDifferent, keyOf, type CategoryId } from './tabs/freeTalkContent'
 import './App.css'
 
 const TABS: BracketTab[] = [
@@ -20,6 +21,8 @@ function App() {
   const [activeId, setActiveId] = useState('pitch')
   const [menuOpen, setMenuOpen] = useState(false)
   const [calibrationMode, setCalibrationMode] = useState<CalibrationMode | null | 'closed'>('closed')
+  const [freeTalkCategory, setFreeTalkCategory] = useState<CategoryId>('smalltalk')
+  const [freeTalkContent, setFreeTalkContent] = useState(() => generateFor('smalltalk'))
   const {
     timeWindowSeconds,
     setTimeWindowSeconds,
@@ -33,11 +36,20 @@ function App() {
     setCalibrationMode(mode)
   }
 
+  const handleFreeTalkCategoryChange = (category: CategoryId) => {
+    setFreeTalkCategory(category)
+    setFreeTalkContent(generateFor(category))
+  }
+
+  const handleFreeTalkNext = () => {
+    setFreeTalkContent((prev) => pickDifferent(freeTalkCategory, keyOf(prev)))
+  }
+
   const footerKeys: FunctionKey[] = [{ key: 'F1', label: 'MENU', onPress: () => setMenuOpen((open) => !open) }]
   if (activeId === 'pitch') {
     footerKeys.push({ key: 'F2', label: 'CALIBRATE', onPress: () => launchCalibration(null) })
   } else if (activeId === 'talk') {
-    footerKeys.push({ key: 'F3', label: 'NEXT', onPress: () => alert('Next prompt — not built yet (Phase 5)') })
+    footerKeys.push({ key: 'F3', label: 'NEXT', onPress: handleFreeTalkNext })
   } else if (activeId === 'compare') {
     footerKeys.push({ key: 'F10', label: 'SAVE', onPress: () => alert('Save clip — not built yet (Phase 6)') })
   }
@@ -47,7 +59,14 @@ function App() {
       <BracketTabs tabs={TABS} activeId={activeId} onSelect={setActiveId} />
       <Panel title="Euphonia">
         {activeId === 'pitch' && <PitchMainTab />}
-        {activeId === 'talk' && <FreeTalkTab />}
+        {activeId === 'talk' && (
+          <FreeTalkTab
+            category={freeTalkCategory}
+            content={freeTalkContent}
+            onCategoryChange={handleFreeTalkCategoryChange}
+            onNext={handleFreeTalkNext}
+          />
+        )}
         {activeId === 'compare' && <CompareTab />}
       </Panel>
       <FunctionKeyFooter keys={footerKeys} />

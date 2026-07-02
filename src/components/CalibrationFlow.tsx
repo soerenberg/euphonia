@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Panel } from './Panel'
 import { usePitchStream } from '../audio/usePitchStream'
 import { useSessionSamples } from '../audio/useSessionSamples'
@@ -22,9 +22,6 @@ export function CalibrationFlow({ mode: initialMode, onClose }: CalibrationFlowP
   const { status, pitch, clarity, start, stop } = usePitchStream()
   const samples = useSessionSamples(status, pitch, clarity)
   const { setTargetRangeHz, setBaselineRangeHz } = useSettings()
-
-  // Don't leave the mic running if the overlay is closed mid-recording.
-  useEffect(() => () => stop(), [stop])
 
   const chooseMode = (m: CalibrationMode) => {
     setMode(m)

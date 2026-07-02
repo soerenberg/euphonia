@@ -1,0 +1,60 @@
+.floating-pitch-widget {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 5;
+  width: 180px;
+  border: 1px solid var(--sage-muted);
+  background: var(--pine-bg);
+  padding: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.floating-pitch-widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.floating-pitch-widget-hz {
+  font-size: 16px;
+  color: var(--bone-text);
+}
+
+.floating-pitch-widget-close {
+  appearance: none;
+  border: none;
+  background: none;
+  color: var(--sage-muted);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1;
+  padding: 4px 6px;
+  min-width: 32px;
+  min-height: 32px;
+  cursor: pointer;
+}
+
+/* Overrides SteppedPitchGraph's own fixed 220px height for this smaller context. */
+.floating-pitch-widget .stepped-pitch-graph {
+  height: 60px;
+}
+
+.floating-pitch-widget-start {
+  appearance: none;
+  border: 1px solid var(--sage-muted);
+  background: none;
+  color: var(--bone-text);
+  font: inherit;
+  padding: 8px 12px;
+  min-height: 44px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.floating-pitch-widget-error {
+  color: var(--amber-warn);
+  font-size: 11px;
+}
